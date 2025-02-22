@@ -3,6 +3,8 @@ package package1;
 import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -15,7 +17,7 @@ import javax.swing.SwingUtilities;
 
 
 
-public class UserInfoReceiver extends JFrame {
+public class UserInfoReceiver extends JFrame implements ActionListener{
 	private JButton user;
 	private JButton client;
 	UserButtons usrbtn = new UserButtons();
@@ -44,6 +46,9 @@ public class UserInfoReceiver extends JFrame {
 		usrbtn.setOpaque(false);
 		this.setVisible(true);
 		add(usrbtn, BorderLayout.CENTER);
+		
+		user.addActionListener(this);    //TO SWITCH TO THE OTHER FRAMES
+		client.addActionListener(this);
 
         // Panel for form inputs
         JPanel inputPanel = new JPanel();
@@ -81,5 +86,19 @@ public class UserInfoReceiver extends JFrame {
 	   public static void main(String[] args) {
 	        SwingUtilities.invokeLater(() -> new UserInfoReceiver().setVisible(true));
 	    }
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == user) {
+			this.dispose();
+			new Owner();
+		}
+		if (e.getSource() == client) {
+			this.dispose();
+			new Customer();
+		}
+		
+	}
+	   
+	   
 	}
 
