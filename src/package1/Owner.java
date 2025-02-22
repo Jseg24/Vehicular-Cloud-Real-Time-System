@@ -38,6 +38,7 @@ public class Owner extends JFrame implements ActionListener {
 		createPanel();
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setTitle("Client Page");
 		this.setLayout(new BorderLayout());
 		this.setSize(500, 500);
 		this.setResizable(false);

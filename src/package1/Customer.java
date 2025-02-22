@@ -39,7 +39,8 @@ public class Customer extends JFrame implements ActionListener {
 		createPanel();
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setLayout(new BorderLayout());
+		this.setTitle("User Page");
+		this.setLayout(new BorderLayout());		
 		this.setSize(500, 500);
 		this.setResizable(false);
 		panel.setBorder(new EmptyBorder(150,75,150,75));
@@ -136,4 +137,3 @@ public class Customer extends JFrame implements ActionListener {
 
 	}
 }
-
