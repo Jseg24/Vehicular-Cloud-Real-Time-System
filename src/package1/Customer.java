@@ -155,9 +155,11 @@ public class Customer extends JFrame implements ActionListener {
                 new Storing(clientID, jobHours, deadlineText);
                 this.dispose();
                 new UserInfoReceiver();
-            } catch (NumberFormatException ex) {
+            } 
+            catch (NumberFormatException ex) {
                 System.out.println("Error: Invalid input! Ensure ID, Year, and Residency Time are numbers.");
-         
+            }
+            }
     
 			
 		
@@ -167,7 +169,4 @@ public class Customer extends JFrame implements ActionListener {
 		}
 
 	}
-            
 }
-		
-}}
