@@ -79,7 +79,7 @@ public class Owner extends JFrame implements ActionListener {
 	public void createTextField() {
 
 		owner = new JLabel();
-		owner.setText("Owner ID: ");
+		owner.setText("Owner ID(6 digits): ");
 		owner_ID = new JTextField();
 		owner_ID.setPreferredSize(new Dimension(10,10));
 
@@ -151,13 +151,23 @@ public class Owner extends JFrame implements ActionListener {
 		add(panel);
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == submit) {
-			new Storing(owner_ID.getText(), Vehi_info.getText(), model_text.getText(), year_text.getText(), Approx_residency.getText());
-			this.dispose();
-			new UserInfoReceiver();
-		}
+	 @Override
+	    public void actionPerformed(ActionEvent e) {
+	        if (e.getSource() == submit) {
+	            try {
+	                // Convert inputs from text fields to int
+	                int ownerID = Integer.parseInt(owner_ID.getText());
+	                int year = Integer.parseInt(year_text.getText());
+	                int residencyTime = Integer.parseInt(Approx_residency.getText());
+
+	                // Create a new Storing instance (automatically saves data if valid)
+	                new Storing(ownerID, Vehi_info.getText(), model_text.getText(), year, residencyTime);
+	                this.dispose();
+	                new UserInfoReceiver();
+	            } catch (NumberFormatException ex) {
+	                System.out.println("Error: Invalid input! Ensure ID, Year, and Residency Time are numbers.");
+	            }
+	        }
 		
 		if (e.getSource() == back) {
 			this.dispose();
