@@ -42,7 +42,7 @@ public class Customer extends JFrame implements ActionListener {
 		createPanel();
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setTitle("User Page");
+		this.setTitle("Client Page");
 		this.setLayout(new BorderLayout());		
 		this.setSize(500, 500);
 		this.setResizable(false);
@@ -155,9 +155,11 @@ public class Customer extends JFrame implements ActionListener {
                 new Storing(clientID, jobHours, deadlineText);
                 this.dispose();
                 new UserInfoReceiver();
-            } catch (NumberFormatException ex) {
+            } 
+            catch (NumberFormatException ex) {
                 System.out.println("Error: Invalid input! Ensure ID, Year, and Residency Time are numbers.");
-         
+            }
+            }
     
 			
 		
@@ -167,7 +169,8 @@ public class Customer extends JFrame implements ActionListener {
 		}
 
 	}
-            
 }
+            
+
 		
-}}
+
