@@ -127,7 +127,9 @@ public class Customer extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == submit) {
-			
+			new Storing(client_ID.getText(), Approx_Job.getText(), Job_deadline.getText());
+			this.dispose();
+			new UserInfoReceiver();
 		}
 		
 		if (e.getSource() == back) {

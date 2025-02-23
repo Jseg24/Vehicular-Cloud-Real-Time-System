@@ -22,13 +22,17 @@ public class Owner extends JFrame implements ActionListener {
 	private JButton submit;
 	private JButton back;
 	private JTextField owner_ID;
-	private JTextField Vech_info;
+	private JTextField Vehi_info;
 	private JTextField Approx_residency;
 	private JLabel owner;
-	private JLabel vech;
+	private JLabel vehi;
 	private JLabel approx;
 	private JPanel panel;
 	private JPanel panelButton;
+	private JLabel model;
+	private JTextField model_text;
+	private JLabel year;
+	private JTextField year_text;
 	
 	
 	public Owner() {
@@ -42,7 +46,7 @@ public class Owner extends JFrame implements ActionListener {
 		this.setLayout(new BorderLayout());
 		this.setSize(500, 500);
 		this.setResizable(false);
-		panel.setBorder(new EmptyBorder(150,75,150,75));
+		panel.setBorder(new EmptyBorder(120,75,100,75));
 		this.add(panel, BorderLayout.CENTER);
 		this.add(panelButton, BorderLayout.SOUTH);
 
@@ -79,10 +83,22 @@ public class Owner extends JFrame implements ActionListener {
 		owner_ID = new JTextField();
 		owner_ID.setPreferredSize(new Dimension(10,10));
 
-		vech = new JLabel();
-		vech.setText("Vehicle Information: ");
-		Vech_info = new JTextField();
-		Vech_info.setPreferredSize(new Dimension(10,10));
+		vehi = new JLabel();
+		vehi.setText("Vehicle Make: ");
+		Vehi_info = new JTextField();
+		Vehi_info.setPreferredSize(new Dimension(10,10));
+
+		
+		model = new JLabel();
+		model.setText("Vehicle Model: ");
+		model_text = new JTextField();
+		model_text.setPreferredSize(new Dimension(10,10));
+		
+
+		year = new JLabel();
+		year.setText("Vehicle Year: ");
+		year_text = new JTextField();
+		year_text.setPreferredSize(new Dimension(10,10));
 
 
 		approx = new JLabel();
@@ -106,18 +122,30 @@ public class Owner extends JFrame implements ActionListener {
 
 		JPanel panel2 = new JPanel();
 		panel2.setLayout(new BoxLayout(panel2, BoxLayout.Y_AXIS));
-		panel2.add(vech);
-		panel2.add(Vech_info);
-
+		panel2.add(vehi);
+		panel2.add(Vehi_info);
+		
 		JPanel panel3 = new JPanel();
 		panel3.setLayout(new BoxLayout(panel3, BoxLayout.Y_AXIS));
-		panel3.add(approx);
-		panel3.add(Approx_residency);
+		panel3.add(model);
+		panel3.add(model_text);
+		
+		JPanel panel4 = new JPanel();
+		panel4.setLayout(new BoxLayout(panel4, BoxLayout.Y_AXIS));
+		panel4.add(year);
+		panel4.add(year_text);
+
+		JPanel panel5 = new JPanel();
+		panel5.setLayout(new BoxLayout(panel5, BoxLayout.Y_AXIS));
+		panel5.add(approx);
+		panel5.add(Approx_residency);
 		
 		
 		panel.add(panel1);
 		panel.add(panel2);
 		panel.add(panel3);
+		panel.add(panel4);
+		panel.add(panel5);
 		
 
 		add(panel);
@@ -126,7 +154,9 @@ public class Owner extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == submit) {
-			
+			new Storing(owner_ID.getText(), Vehi_info.getText(), model_text.getText(), year_text.getText(), Approx_residency.getText());
+			this.dispose();
+			new UserInfoReceiver();
 		}
 		
 		if (e.getSource() == back) {
