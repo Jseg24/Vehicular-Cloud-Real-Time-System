@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.SwingConstants;
 
 public class Owner extends JFrame implements ActionListener {
 
@@ -78,29 +79,39 @@ public class Owner extends JFrame implements ActionListener {
 
 		owner = new JLabel();
 		owner.setText("Owner ID(6 digits): ");
+		owner.setHorizontalAlignment(SwingConstants.CENTER); //ADDED THIS TO CENTER 
+		owner.setAlignmentX(JLabel.CENTER_ALIGNMENT);
 		owner_ID = new JTextField();
 		owner_ID.setPreferredSize(new Dimension(10,10));
 
 		vehi = new JLabel();
 		vehi.setText("Vehicle Make: ");
+		vehi.setHorizontalAlignment(SwingConstants.CENTER); 
+		vehi.setAlignmentX(JLabel.CENTER_ALIGNMENT);
 		Vehi_info = new JTextField();
 		Vehi_info.setPreferredSize(new Dimension(10,10));
 
 		
 		model = new JLabel();
 		model.setText("Vehicle Model: ");
+		model.setHorizontalAlignment(SwingConstants.CENTER);
+		model.setAlignmentX(JLabel.CENTER_ALIGNMENT);
 		model_text = new JTextField();
 		model_text.setPreferredSize(new Dimension(10,10));
 		
 
 		year = new JLabel();
 		year.setText("Vehicle Year: ");
+		year.setHorizontalAlignment(SwingConstants.CENTER);
+		year.setAlignmentX(JLabel.CENTER_ALIGNMENT);
 		year_text = new JTextField();
 		year_text.setPreferredSize(new Dimension(10,10));
 
 
 		approx = new JLabel();
 		approx.setText("Approximate Residency Time Of The Vehicle: ");
+		approx.setHorizontalAlignment(SwingConstants.CENTER);
+		approx.setAlignmentX(JLabel.CENTER_ALIGNMENT);
 		Approx_residency = new JTextField();
 		Approx_residency.setPreferredSize(new Dimension(10,10));
 		
@@ -115,26 +126,31 @@ public class Owner extends JFrame implements ActionListener {
 
 		JPanel panel1 = new JPanel();
 		panel1.setLayout(new BoxLayout(panel1, BoxLayout.Y_AXIS));
+		owner.setAlignmentX(JLabel.CENTER_ALIGNMENT);  // Ensure label is centered
 		panel1.add(owner);
 		panel1.add(owner_ID);
 
 		JPanel panel2 = new JPanel();
 		panel2.setLayout(new BoxLayout(panel2, BoxLayout.Y_AXIS));
+		vehi.setAlignmentX(JLabel.CENTER_ALIGNMENT);
 		panel2.add(vehi);
 		panel2.add(Vehi_info);
 		
 		JPanel panel3 = new JPanel();
 		panel3.setLayout(new BoxLayout(panel3, BoxLayout.Y_AXIS));
+		model.setAlignmentX(JLabel.CENTER_ALIGNMENT);
 		panel3.add(model);
 		panel3.add(model_text);
 		
 		JPanel panel4 = new JPanel();
 		panel4.setLayout(new BoxLayout(panel4, BoxLayout.Y_AXIS));
+		year.setAlignmentX(JLabel.CENTER_ALIGNMENT);
 		panel4.add(year);
 		panel4.add(year_text);
 
 		JPanel panel5 = new JPanel();
 		panel5.setLayout(new BoxLayout(panel5, BoxLayout.Y_AXIS));
+		approx.setAlignmentX(JLabel.CENTER_ALIGNMENT);
 		panel5.add(approx);
 		panel5.add(Approx_residency);
 		
