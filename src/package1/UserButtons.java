@@ -48,14 +48,14 @@ public class UserButtons extends JPanel {
 		user.setPreferredSize(new Dimension(150, 50));
 		this.add(user);
 		user.setFont(new Font("Times New Roman", Font.BOLD, 14));
-		
+
 		user.setBorder(new CompoundBorder(new LineBorder(Color.WHITE, 2), new EmptyBorder(5, 10, 5, 10)));
 
 		this.add(Box.createHorizontalStrut(60));
-		
+
 		client = new JButton("CLIENT");
 
-		client.setToolTipText("Click if client");
+		client.setToolTipText("Click if Client");
 		client.setPreferredSize(new Dimension(150, 50));
 		this.add(client);
 
