@@ -34,8 +34,7 @@ public class Owner extends JFrame implements ActionListener {
 	private JTextField model_text;
 	private JLabel year;
 	private JTextField year_text;
-	
-	
+
 	public Owner() {
 
 		createButton();
@@ -47,7 +46,7 @@ public class Owner extends JFrame implements ActionListener {
 		this.setLayout(new BorderLayout());
 		this.setSize(500, 500);
 		this.setResizable(false);
-		panel.setBorder(new EmptyBorder(120,75,100,75));
+		panel.setBorder(new EmptyBorder(120, 75, 100, 75));
 		this.add(panel, BorderLayout.CENTER);
 		this.add(panelButton, BorderLayout.SOUTH);
 
@@ -55,7 +54,9 @@ public class Owner extends JFrame implements ActionListener {
 
 	}
 
-	
+	public static void main(String[] args) {
+		new Owner();
+	}
 
 	public void createButton() {
 		submit = new JButton();
@@ -64,7 +65,7 @@ public class Owner extends JFrame implements ActionListener {
 		submit.setFocusable(false);
 
 		back = new JButton();
-		back.setText("back");
+		back.setText("Back");
 		back.addActionListener(this);
 		back.setFocusable(false);
 
@@ -78,55 +79,49 @@ public class Owner extends JFrame implements ActionListener {
 	public void createTextField() {
 
 		owner = new JLabel();
-		owner.setText("Owner ID(6 digits): ");
-		owner.setHorizontalAlignment(SwingConstants.CENTER); //ADDED THIS TO CENTER 
+		owner.setText("Owner ID (6 digits): ");
+		owner.setHorizontalAlignment(SwingConstants.CENTER); // ADDED THIS TO CENTER
 		owner.setAlignmentX(JLabel.CENTER_ALIGNMENT);
 		owner_ID = new JTextField();
-		owner_ID.setPreferredSize(new Dimension(10,10));
+		owner_ID.setPreferredSize(new Dimension(10, 10));
 
 		vehi = new JLabel();
 		vehi.setText("Vehicle Make: ");
-		vehi.setHorizontalAlignment(SwingConstants.CENTER); 
+		vehi.setHorizontalAlignment(SwingConstants.CENTER);
 		vehi.setAlignmentX(JLabel.CENTER_ALIGNMENT);
 		Vehi_info = new JTextField();
-		Vehi_info.setPreferredSize(new Dimension(10,10));
+		Vehi_info.setPreferredSize(new Dimension(10, 10));
 
-		
 		model = new JLabel();
 		model.setText("Vehicle Model: ");
 		model.setHorizontalAlignment(SwingConstants.CENTER);
 		model.setAlignmentX(JLabel.CENTER_ALIGNMENT);
 		model_text = new JTextField();
-		model_text.setPreferredSize(new Dimension(10,10));
-		
+		model_text.setPreferredSize(new Dimension(10, 10));
 
 		year = new JLabel();
 		year.setText("Vehicle Year: ");
 		year.setHorizontalAlignment(SwingConstants.CENTER);
 		year.setAlignmentX(JLabel.CENTER_ALIGNMENT);
 		year_text = new JTextField();
-		year_text.setPreferredSize(new Dimension(10,10));
-
+		year_text.setPreferredSize(new Dimension(10, 10));
 
 		approx = new JLabel();
-		approx.setText("Approximate Residency Time Of The Vehicle: ");
+		approx.setText("Approx. Residency Time Of Vehicle (In Hours): ");
 		approx.setHorizontalAlignment(SwingConstants.CENTER);
 		approx.setAlignmentX(JLabel.CENTER_ALIGNMENT);
 		Approx_residency = new JTextField();
-		Approx_residency.setPreferredSize(new Dimension(10,10));
-		
-		
+		Approx_residency.setPreferredSize(new Dimension(10, 10));
 
 	}
 
 	public void createPanel() {
 		panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-		
 
 		JPanel panel1 = new JPanel();
 		panel1.setLayout(new BoxLayout(panel1, BoxLayout.Y_AXIS));
-		owner.setAlignmentX(JLabel.CENTER_ALIGNMENT);  // Ensure label is centered
+		owner.setAlignmentX(JLabel.CENTER_ALIGNMENT); // Ensure label is centered
 		panel1.add(owner);
 		panel1.add(owner_ID);
 
@@ -135,13 +130,13 @@ public class Owner extends JFrame implements ActionListener {
 		vehi.setAlignmentX(JLabel.CENTER_ALIGNMENT);
 		panel2.add(vehi);
 		panel2.add(Vehi_info);
-		
+
 		JPanel panel3 = new JPanel();
 		panel3.setLayout(new BoxLayout(panel3, BoxLayout.Y_AXIS));
 		model.setAlignmentX(JLabel.CENTER_ALIGNMENT);
 		panel3.add(model);
 		panel3.add(model_text);
-		
+
 		JPanel panel4 = new JPanel();
 		panel4.setLayout(new BoxLayout(panel4, BoxLayout.Y_AXIS));
 		year.setAlignmentX(JLabel.CENTER_ALIGNMENT);
@@ -153,36 +148,34 @@ public class Owner extends JFrame implements ActionListener {
 		approx.setAlignmentX(JLabel.CENTER_ALIGNMENT);
 		panel5.add(approx);
 		panel5.add(Approx_residency);
-		
-		
+
 		panel.add(panel1);
 		panel.add(panel2);
 		panel.add(panel3);
 		panel.add(panel4);
 		panel.add(panel5);
-		
 
 		add(panel);
 	}
 
-	 @Override
-	    public void actionPerformed(ActionEvent e) {
-	        if (e.getSource() == submit) {
-	            try {
-	                // Convert inputs from text fields to int
-	                int ownerID = Integer.parseInt(owner_ID.getText());
-	                int year = Integer.parseInt(year_text.getText());
-	                int residencyTime = Integer.parseInt(Approx_residency.getText());
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == submit) {
+			try {
+				// Convert inputs from text fields to int
+				int ownerID = Integer.parseInt(owner_ID.getText());
+				int year = Integer.parseInt(year_text.getText());
+				int residencyTime = Integer.parseInt(Approx_residency.getText());
 
-	                // Create a new Storing instance (automatically saves data if valid)
-	                new Storing(ownerID, Vehi_info.getText(), model_text.getText(), year, residencyTime);
-	                this.dispose();
-	                new UserInfoReceiver();
-	            } catch (NumberFormatException ex) {
-	                System.out.println("Error: Invalid input! Ensure ID, Year, and Residency Time are numbers.");
-	            }
-	        }
-		
+				// Create a new Storing instance (automatically saves data if valid)
+				new Storing(ownerID, Vehi_info.getText(), model_text.getText(), year, residencyTime);
+				this.dispose();
+				new UserInfoReceiver();
+			} catch (NumberFormatException ex) {
+				System.out.println("Error: Invalid input! Ensure ID, Year, and Residency Time are numbers.");
+			}
+		}
+
 		if (e.getSource() == back) {
 			this.dispose();
 			new UserInfoReceiver();
@@ -190,4 +183,3 @@ public class Owner extends JFrame implements ActionListener {
 
 	}
 }
-
