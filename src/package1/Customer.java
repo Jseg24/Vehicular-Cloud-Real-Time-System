@@ -54,9 +54,7 @@ public class Customer extends JFrame implements ActionListener {
 
 	}
 
-	public static void main(String[] args) {
-		new Customer();
-	}
+	
 
 	public void createButton() {
 		submit = new JButton();

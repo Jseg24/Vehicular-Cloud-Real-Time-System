@@ -54,9 +54,7 @@ public class Owner extends JFrame implements ActionListener {
 
 	}
 
-	public static void main(String[] args) {
-		new Owner();
-	}
+	
 
 	public void createButton() {
 		submit = new JButton();
