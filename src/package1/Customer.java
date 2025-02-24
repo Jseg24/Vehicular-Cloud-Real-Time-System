@@ -20,6 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.SwingConstants;
 
 public class Customer extends JFrame implements ActionListener {
 
@@ -80,17 +81,23 @@ public class Customer extends JFrame implements ActionListener {
 
 		Client = new JLabel();
 		Client.setText("Client ID (6 digits): ");
+		Client.setHorizontalAlignment(SwingConstants.CENTER);
+	    Client.setAlignmentX(JLabel.CENTER_ALIGNMENT);
 		client_ID = new JTextField();
 		client_ID.setPreferredSize(new Dimension(10,10));
 
 		duration = new JLabel();
 		duration.setText("Approximate Job Duration (hours): ");
+		duration.setHorizontalAlignment(SwingConstants.CENTER);
+		duration.setAlignmentX(JLabel.CENTER_ALIGNMENT);
 		jobDuration = new JTextField();
 		jobDuration.setPreferredSize(new Dimension(10,10));
 
 
 		deadline = new JLabel();
 		deadline.setText("Job Deadline (Enter MM/DD/YYYY): ");
+		deadline.setHorizontalAlignment(SwingConstants.CENTER);
+		deadline.setAlignmentX(JLabel.CENTER_ALIGNMENT);
 		jobDeadline = new JTextField();
 		jobDeadline.setPreferredSize(new Dimension(10,10));
 		
@@ -105,16 +112,19 @@ public class Customer extends JFrame implements ActionListener {
 
 		JPanel panel1 = new JPanel();
 		panel1.setLayout(new BoxLayout(panel1, BoxLayout.Y_AXIS));
+		Client.setAlignmentX(JLabel.CENTER_ALIGNMENT);
 		panel1.add(Client);
 		panel1.add(client_ID);
 
 		JPanel panel2 = new JPanel();
 		panel2.setLayout(new BoxLayout(panel2, BoxLayout.Y_AXIS));
+		duration.setAlignmentX(JLabel.CENTER_ALIGNMENT);
 		panel2.add(duration);
 		panel2.add(jobDuration);
 
 		JPanel panel3 = new JPanel();
 		panel3.setLayout(new BoxLayout(panel3, BoxLayout.Y_AXIS));
+		deadline.setAlignmentX(JLabel.CENTER_ALIGNMENT);
 		panel3.add(deadline);
 		panel3.add(jobDeadline);
 		
