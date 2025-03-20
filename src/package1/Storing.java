@@ -23,6 +23,12 @@ public class Storing {
 	LocalDateTime timeStamp = LocalDateTime.now();
 	DateTimeFormatter format = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm:ss");
 	String newDate = timeStamp.format(format);
+	
+
+	//--------------------------------
+	VC vc = VC.getInstance();
+	//------------------------
+	
 
 	public Storing(int owner_ID, String vehi_info, String model_text, int year, int Approx_residency) {
 
@@ -62,6 +68,12 @@ public class Storing {
 			writer.write("Job Deadline: " + jobDeadline + "\n");
 			writer.write("Time Stamp: " + newDate + "\n\n");
 			writer.close();
+			
+
+			//---------------------
+			
+			vc.addJob(clientID, jobDuration);
+			//---------------------
 
 		} catch (IOException e) {
 
