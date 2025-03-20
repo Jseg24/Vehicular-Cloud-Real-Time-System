@@ -1,4 +1,4 @@
-package package1;
+
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -6,10 +6,14 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
@@ -76,9 +80,23 @@ public class VC_Frame extends JFrame implements ActionListener{
 		@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == cal) {
-			 
+			displayCompletionTimes();
 	         vc.jobCompletion();
 		}
 		
 	}
-}
+		 private void displayCompletionTimes() {
+		        StringBuilder result = new StringBuilder();
+		        
+		        try (BufferedReader reader = new BufferedReader(new FileReader("VC.txt"))) {
+		            String line;
+		            while ((line = reader.readLine()) != null) {
+		                result.append(line).append("\n");
+		            }
+		        } catch (IOException ex) {
+		            result.append("Error reading job completion times.");
+		        }
+
+		        JOptionPane.showMessageDialog(this, result.toString(), "Job Completion Times", JOptionPane.INFORMATION_MESSAGE);
+		    }
+		}

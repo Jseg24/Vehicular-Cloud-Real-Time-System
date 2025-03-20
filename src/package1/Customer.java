@@ -1,4 +1,4 @@
-package package1;
+
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -16,6 +16,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
@@ -34,8 +35,10 @@ public class Customer extends JFrame implements ActionListener {
 	private JPanel panel;
 	private JPanel panelButton;
 
+	private VC vc;
+	
 	public Customer() {
-
+		vc = VC.getInstance();
 		createButton();
 		createTextField();
 		createPanel();
@@ -156,6 +159,9 @@ public class Customer extends JFrame implements ActionListener {
 				}
 
 				new Storing(clientID, jobHours, deadlineText);
+				vc.addJob(clientID, jobHours);
+				//success message
+                JOptionPane.showMessageDialog(this, "Job submitted successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
 				this.dispose();
 				new UserInfoReceiver();
 			} catch (NumberFormatException ex) {

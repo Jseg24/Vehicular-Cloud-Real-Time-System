@@ -1,4 +1,4 @@
-package package1;
+
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -20,7 +20,7 @@ public class VC {
 	
 	private VC() {
 		
-	}
+		}
 	
 	public static VC getInstance() {
         if (inst == null) {
@@ -40,7 +40,8 @@ public class VC {
 		System.out.print("Job created");
 		jobID++;
 		
-		jobCompletion();
+		  jobList.add(job);
+	        
 		
 	}
 	
@@ -72,10 +73,6 @@ public class VC {
 		}
 
 	}
-	
-
-	 
-	 
 	/*
 	public ArrayList<Car> getAvalCars() {
 		return avalCars;
