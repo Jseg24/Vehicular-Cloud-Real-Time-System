@@ -1,3 +1,4 @@
+package package1;
 
 
 import java.awt.BorderLayout;
@@ -80,8 +81,9 @@ public class VC_Frame extends JFrame implements ActionListener{
 		@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == cal) {
+			vc.jobCompletion();
 			displayCompletionTimes();
-	         vc.jobCompletion();
+	         
 		}
 		
 	}

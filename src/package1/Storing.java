@@ -1,4 +1,5 @@
 
+package package1;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -70,10 +71,7 @@ public class Storing {
 			writer.close();
 			
 
-			//---------------------
 			
-			vc.addJob(clientID, jobDuration);
-			//---------------------
 
 		} catch (IOException e) {
 
