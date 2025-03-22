@@ -12,6 +12,11 @@ public class Job {
 		this.jobDuration = jobDuration;
 		this.date = date;
 	}
+	@Override
+	public String toString() {
+	    return jobID + "," + clientID + "," + jobDuration + "," + date;
+	}
+
 
 	public int getJobID() {
 		return jobID;
@@ -45,3 +50,4 @@ public class Job {
 		this.date = date;
 	}
 }
+

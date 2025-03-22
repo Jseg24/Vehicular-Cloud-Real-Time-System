@@ -1,6 +1,8 @@
 
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -19,7 +21,7 @@ public class VC {
 	// }
 	
 	private VC() {
-		
+		 loadJobsFromFile();
 		}
 	
 	public static VC getInstance() {
@@ -39,9 +41,8 @@ public class VC {
 		jobList.add(job);
 		System.out.print("Job created");
 		jobID++;
-		
-		  jobList.add(job);
-	        
+		saveJobsToFile(); 
+	       
 		
 	}
 	
@@ -73,6 +74,44 @@ public class VC {
 		}
 
 	}
+	
+	private void saveJobsToFile() {
+	    try (BufferedWriter writer = new BufferedWriter(new FileWriter("jobs.txt"))) {
+	        for (Job job : jobList) {
+	            writer.write(job.toString() + "\n");
+	        }
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	}
+	private void loadJobsFromFile() {
+		 jobList.clear();
+	    try (BufferedReader reader = new BufferedReader(new FileReader("jobs.txt"))) {
+	        String line;
+	        //Read each line
+	        while ((line = reader.readLine()) != null) {
+	            String[] parts = line.split(",");
+	            
+	            if (parts.length >= 4) {
+	            	//parse for info
+	                int id = Integer.parseInt(parts[0]);
+	                int client = Integer.parseInt(parts[1]);
+	                int dur = Integer.parseInt(parts[2]);
+	                String date = parts[3];
+	                //recreate job object from saved data
+	                Job job = new Job(id, client, dur, date);
+	                jobList.add(job);
+	                //ensures jobID is always one more than the highest ID loaded from the file and updates jobID so no duplicates
+	                jobID = Math.max(jobID, id + 1);
+	            }
+	        }
+	        System.out.println("Jobs loaded from file.");
+	    } catch (IOException e) {
+	        System.out.println("No previous jobs found.");
+	    }
+	}
+
+	
 	/*
 	public ArrayList<Car> getAvalCars() {
 		return avalCars;
