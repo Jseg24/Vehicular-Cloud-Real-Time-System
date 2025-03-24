@@ -15,12 +15,14 @@ public class VC {
 	static ArrayList<Job> jobList = new ArrayList<Job>();
 	private int jobID = 1;
 	private static VC inst;
+	private Server server;
 	
 	// public VC(int ownerID, String make, String model, int year ) {
 	// Car car = new Car(make, model, ownerID, year);
 	// }
 	
 	private VC() {
+		 server = new Server();
 		 loadJobsFromFile();
 		}
 	
@@ -137,4 +139,19 @@ public class VC {
 	public void setJobID(int jobID) {
 		this.jobID = jobID;
 	}
+	
+	public void markJobAsCompleted(int jobID) {
+	    for (Job job : jobList) {
+	        if (job.getJobID() == jobID) {
+	            job.setCompleted(true);
+	            server.storeCompleteJob(job);
+	            break;
+	        }
+	    }
+	}
+
+	public ArrayList<String> getServerResults() {
+	    return new ArrayList<>(server.getJobResults());
+	}
+
 }
