@@ -43,9 +43,9 @@ public class UserButtons extends JPanel {
 		this.setPreferredSize(new Dimension(400, 30));
 		this.setBackground(Color.black);
 
-		user = new JButton("USER");
+		user = new JButton("OWNER");
 
-		user.setToolTipText("Click if User");
+		user.setToolTipText("Click if Owner");
 		user.setPreferredSize(new Dimension(150, 50));
 		this.add(user);
 		user.setFont(new Font("Times New Roman", Font.BOLD, 14));
