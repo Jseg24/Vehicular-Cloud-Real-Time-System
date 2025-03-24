@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List
 
 public class VC {
 	//private ArrayList<Car> avalCars = new ArrayList<>();
@@ -48,28 +49,29 @@ public class VC {
 		
 	}
 	
-	public  void jobCompletion() {
-		 //System.out.println("Jobs in list: " + jobList);
+	public void jobCompletion() {
+		// System.out.println("Jobs in list: " + jobList);
 		int count = 0;
-		int[] ID = new int[getJobList().size()];
-		int[] dur = new int[getJobList().size()];
-		int[] completion = new int[getJobList().size()];
+		List<Integer> ID = new ArrayList<>();
+		List<Integer> clientID = new ArrayList<>();
+		List<Integer> dur = new ArrayList<>();
+		List<Integer> completion = new ArrayList<>();
 		int i = 0;
-		
+
 		for (Job curJob : getJobList()) {
-			ID[i] = (curJob.getJobID());
-			dur[i] = (curJob.getJobDuration());
-			completion[i] = count + curJob.getJobDuration();
-			count+=curJob.getJobDuration();
-			i++;
+			ID.add(curJob.getJobID());
+			clientID.add(curJob.getClientID());
+			dur.add(curJob.getJobDuration());
+			count += curJob.getJobDuration();
+			completion.add(count);	
 		}
 
-		
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter("VC.txt", false));
-			writer.write("ID: " + Arrays.toString(ID) + "\n");
-			writer.write("Duration: " + Arrays.toString(dur) + "\n");
-			writer.write("Completion of jobs are: \n" + Arrays.toString(completion));
+			writer.write("Job ID: " + ID + "\n");
+			writer.write("Client ID: " + clientID + "\n");
+			writer.write("Duration: " + dur + "\n");
+			writer.write("Completion of jobs are: \n" + completion);
 			writer.close();
 		} catch (IOException e) {
 			e.printStackTrace();
