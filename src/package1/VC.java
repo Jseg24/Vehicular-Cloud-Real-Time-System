@@ -71,7 +71,7 @@ public class VC {
 			writer.write("Job ID: " + ID + "\n");
 			writer.write("Client ID: " + clientID + "\n");
 			writer.write("Duration: " + dur + "\n");
-			writer.write("Completion of jobs are: \n" + completion);
+			writer.write("Completion time for jobs are: \n" + completion);
 			writer.close();
 		} catch (IOException e) {
 			e.printStackTrace();
