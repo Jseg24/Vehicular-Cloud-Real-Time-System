@@ -6,6 +6,7 @@ public class Job {
 	private int clientID;
 	private int jobDuration;
 	private String date;
+	private boolean isCompleted = false;
 	
 	public Job(int jobID, int clientID, int jobDuration, String date) {
 		this.jobID = jobID;
@@ -49,6 +50,14 @@ public class Job {
 
 	public void setDate(String date) {
 		this.date = date;
+	}
+	
+	public boolean isCompleted() {
+		return isCompleted;
+	}
+	
+	public void setCompleted(boolean isCompleted) {
+		this.isCompleted = isCompleted;
 	}
 }
 
