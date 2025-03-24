@@ -20,6 +20,7 @@ public class UserButtons extends JPanel {
 
 	private JButton user;
 	private JButton client;
+	private JButton vcContr;
 
 	// Static block to set the Nimbus Look and Feel
 	Border emptyborder = BorderFactory.createEmptyBorder();
@@ -64,6 +65,13 @@ public class UserButtons extends JPanel {
 
 		// Add border
 		client.setBorder(new CompoundBorder(new LineBorder(Color.WHITE, 2), new EmptyBorder(5, 10, 5, 10)));
+		
+		vcContr = new JButton("VC controller");
+		vcContr.setToolTipText("Click if VC controller");
+		vcContr.setPreferredSize(new Dimension(150, 50));
+		this.add(vcContr);
+		vcContr.setFont(new Font("Times New Roman", Font.BOLD, 14));
+		vcContr.setBorder(new CompoundBorder(new LineBorder(Color.WHITE, 2), new EmptyBorder(5, 10, 5, 10)));
 
 	}
 
@@ -74,5 +82,9 @@ public class UserButtons extends JPanel {
 
 	public JButton getClientBtn() {
 		return client;
+	}
+	
+	public JButton getVCtBtn() {
+		return vcContr;
 	}
 }

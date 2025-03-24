@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List
+import java.util.List;
 
 public class VC {
 	//private ArrayList<Car> avalCars = new ArrayList<>();
