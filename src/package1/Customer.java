@@ -159,12 +159,17 @@ public class Customer extends JFrame implements ActionListener {
 					return;
 				}
 
-				new Storing(clientID, jobHours, deadlineText);
-				vc.addJob(clientID, jobHours);
-				//success message
+				//new Storing(clientID, jobHours, deadlineText);
+				int newID = vc.getJobID(); 
+				Job pending = new Job(newID, clientID, jobHours, deadlineText);
+				vc.setPendingJob(pending);
+				vc.setJobID(newID + 1);
+
+				//vc.addJob(clientID, jobHours);
+				
                 JOptionPane.showMessageDialog(this, "Job submitted successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
 				this.dispose();
-				new UserInfoReceiver();
+				new VC_Frame();
 			} catch (NumberFormatException ex) {
 				System.out.println("Error: Invalid input! Ensure ID, Year, and Residency Time are numbers.");
 			}

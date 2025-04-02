@@ -79,15 +79,31 @@ public class VC_Frame extends JFrame implements ActionListener{
 	
 	
 		@Override
-	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == cal) {
-			vc.jobCompletion();
-			displayCompletionTimes();
-	         
+		public void actionPerformed(ActionEvent e) {
+			if (e.getSource() == cal) {
+				
+				int n = JOptionPane.showConfirmDialog(null, "Accept Latest Job Submissions?", "", JOptionPane.YES_NO_OPTION);
+
+				if (n == JOptionPane.YES_OPTION) {
+					vc.commitPendingJob();   // Save new job to memory + file
+					vc.jobCompletion();      // Write VC.txt using updated job list
+					displayCompletionTimes();
+				} else {
+					displayCompletionTimes();  // Show current VC.txt without update
+					JOptionPane.showMessageDialog(null, "Goodbye");
+			}
+
 		}
+
+}
+
+	         
+
 		
-	}
-		 private void displayCompletionTimes() {
+	
+		
+
+		private void displayCompletionTimes() {
 		        StringBuilder result = new StringBuilder();
 		        
 		        try (BufferedReader reader = new BufferedReader(new FileReader("VC.txt"))) {

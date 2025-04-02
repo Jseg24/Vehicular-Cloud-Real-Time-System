@@ -17,6 +17,7 @@ public class VC {
 	private int jobID = 1;
 	private static VC inst;
 	private Server server;
+	private Job pendingJob = null;
 	
 	// public VC(int ownerID, String make, String model, int year ) {
 	// Car car = new Car(make, model, ownerID, year);
@@ -33,7 +34,12 @@ public class VC {
         }
         return inst;
     }
-
+	
+	public void setPendingJob(Job job) {
+		this.pendingJob = job;
+	}
+	
+	
 	public void addJob(int clientID, int duration) {
 
 		LocalDateTime timeStamp = LocalDateTime.now();
@@ -78,12 +84,27 @@ public class VC {
 		}
 
 	}
-	
-	private void saveJobsToFile() {
+	public void commitPendingJob() {
+		if (pendingJob != null) {
+			jobList.add(pendingJob);
+			jobID = Math.max(jobID, pendingJob.getJobID() + 1);
+			pendingJob = null;
+			System.out.println("Committing pending job: " + pendingJob);
+
+			saveJobsToFile();
+		}
+		else {
+			System.out.println("No pending jobs:");
+		}
+	}
+	//private 
+	static void saveJobsToFile() {
 	    try (BufferedWriter writer = new BufferedWriter(new FileWriter("jobs.txt"))) {
 	        for (Job job : jobList) {
+	        	System.out.println("Saving to file: " + job);
 	            writer.write(job.toString() + "\n");
 	        }
+	        System.out.println("jobs.txt written.");
 	    } catch (IOException e) {
 	        e.printStackTrace();
 	    }
