@@ -18,6 +18,7 @@ import javax.swing.border.LineBorder;
 
 public class UserButtons extends JPanel {
 
+	
 	private JButton user;
 	private JButton client;
 	

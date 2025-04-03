@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 public class VC {
 	//private ArrayList<Car> avalCars = new ArrayList<>();
 	static ArrayList<Job> jobList = new ArrayList<Job>();
@@ -47,12 +49,29 @@ public class VC {
 		String newDate = timeStamp.format(format);
 
 		Job job = new Job(jobID, clientID, duration, newDate);
+		
+		if(checkJob()) {
 		jobList.add(job);
 		System.out.print("Job created");
 		jobID++;
 		saveJobsToFile(); 
-	       
+		}
+		else {
+			return;
+		}
 		
+	}
+	
+	public boolean checkJob() {
+		int n = JOptionPane.showConfirmDialog(null, "Accept Latest Job Submissions?" ,"",JOptionPane.YES_NO_OPTION);
+
+		if (n == JOptionPane.YES_OPTION) {
+			JOptionPane.showMessageDialog(null, "Opening...");
+			return true;
+		} else {
+			JOptionPane.showMessageDialog(null, "Goodbye");
+			return false;
+		}
 	}
 	
 	public void jobCompletion() {
@@ -84,20 +103,9 @@ public class VC {
 		}
 
 	}
-	public void commitPendingJob() {
-		if (pendingJob != null) {
-			jobList.add(pendingJob);
-			jobID = Math.max(jobID, pendingJob.getJobID() + 1);
-			pendingJob = null;
-			System.out.println("Committing pending job: " + pendingJob);
-
-			saveJobsToFile();
-		}
-		else {
-			System.out.println("No pending jobs:");
-		}
-	}
-	//private 
+	
+	
+		//private 
 	static void saveJobsToFile() {
 	    try (BufferedWriter writer = new BufferedWriter(new FileWriter("jobs.txt"))) {
 	        for (Job job : jobList) {
@@ -109,7 +117,8 @@ public class VC {
 	        e.printStackTrace();
 	    }
 	}
-	private void loadJobsFromFile() {
+	
+	void loadJobsFromFile() {
 		 jobList.clear();
 	    try (BufferedReader reader = new BufferedReader(new FileReader("jobs.txt"))) {
 	        String line;
