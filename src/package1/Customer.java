@@ -160,9 +160,16 @@ public class Customer extends JFrame implements ActionListener {
 				}
 
 				new Storing(clientID, jobHours, deadlineText);
-				vc.addJob(clientID, jobHours);
+				boolean choice;
+				choice = vc.addJob(clientID, jobHours);
 				
-                JOptionPane.showMessageDialog(this, "Job submitted successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+				if(choice) {
+					JOptionPane.showMessageDialog(this, "Job submitted successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+				}
+				else {
+					JOptionPane.showMessageDialog(this, "Job Rejected!", "Rejected", JOptionPane.INFORMATION_MESSAGE);
+				}
+                
 				this.dispose();
 				new UserInfoReceiver();
 			} catch (NumberFormatException ex) {

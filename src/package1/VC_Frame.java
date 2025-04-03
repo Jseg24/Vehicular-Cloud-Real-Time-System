@@ -21,6 +21,7 @@ import javax.swing.SwingUtilities;
 
 public class VC_Frame extends JFrame implements ActionListener{
 	private JButton cal;
+	private JButton cars;
 	private BackgroundPanel background;
 	private JPanel selectionPanel;
 	
@@ -65,10 +66,17 @@ public class VC_Frame extends JFrame implements ActionListener{
 		cal.setPreferredSize(new Dimension(200, 50));
 		cal.setFont(new Font("Times New Roman", Font.BOLD, 14));
 		
+		cars = new JButton("List of cars");
+		cars.setToolTipText("Click for list of cars");
+		cars.setPreferredSize(new Dimension(200, 50));
+		cars.setFont(new Font("Times New Roman", Font.BOLD, 14));
+		
+		centerPanel.add(cars);
 		centerPanel.add(cal);
 		add(centerPanel, BorderLayout.CENTER);
 
 		cal.addActionListener(this);
+		cars.addActionListener(this);
 		setVisible(true);
 	}
 

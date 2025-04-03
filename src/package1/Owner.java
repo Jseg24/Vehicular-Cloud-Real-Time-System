@@ -14,6 +14,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
@@ -35,9 +36,10 @@ public class Owner extends JFrame implements ActionListener {
 	private JTextField model_text;
 	private JLabel year;
 	private JTextField year_text;
-
+	private VC vc;
+	
 	public Owner() {
-
+		vc = VC.getInstance();
 		createButton();
 		createTextField();
 		createPanel();
@@ -170,6 +172,18 @@ public class Owner extends JFrame implements ActionListener {
 
 				// Create a new Storing instance (automatically saves data if valid)
 				new Storing(ownerID, Vehi_info.getText(), model_text.getText(), year, residencyTime);
+				
+				//--------------Takes one car and sees if it will be accpeted or rejected
+				boolean choice;
+				choice = vc.addCar(ownerID, Vehi_info.getText(), model_text.getText(), year, residencyTime);
+				if(choice) {
+					JOptionPane.showMessageDialog(this, "Car registered", "Success", JOptionPane.INFORMATION_MESSAGE);
+				}
+				else {
+					JOptionPane.showMessageDialog(this, "Car Rejected!", "Rejected", JOptionPane.INFORMATION_MESSAGE);
+				}
+				//---------------
+				
 				this.dispose();
 				new UserInfoReceiver();
 			} catch (NumberFormatException ex) {
