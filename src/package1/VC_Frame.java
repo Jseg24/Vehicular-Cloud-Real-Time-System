@@ -93,11 +93,27 @@ public class VC_Frame extends JFrame implements ActionListener{
 				vc.jobCompletion();
 				displayCompletionTimes(); 
 		}
+			if(e.getSource() == cars) {
+				vc.loadCarsFromFile();
+				vc.carCompletion();
+				displayCarfax();
+				}
 
 }
 
 	         
 
+		private void displayCarfax() {
+			 StringBuilder carStr = new StringBuilder();
+			try (BufferedReader reader = new BufferedReader(new FileReader("vcCars.txt"))) {
+	            String line;
+	            while ((line = reader.readLine()) != null) {
+	                carStr.append(line).append("\n");
+	            }
+	        } catch (IOException ex) {
+	        }
+			 JOptionPane.showMessageDialog(this, carStr.toString(), "Car Completion Times", JOptionPane.INFORMATION_MESSAGE);
+		}
 		
 	
 		

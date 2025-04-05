@@ -28,6 +28,7 @@ public class VC {
 	private VC() {
 		 server = new Server();
 		 loadJobsFromFile();
+		 loadCarsFromFile();
 		}
 	
 	public static VC getInstance() {
@@ -46,7 +47,7 @@ public class VC {
 		if(checkCar()) {
 			carList.add(car);
 			carID++;
-			saveJobsToFile();
+			saveCarsToFile();
 			return true;
 		}
 		else
@@ -174,52 +175,62 @@ public class VC {
 	
 	//----------------------------------------------------
 	public void carCompletion() {
-		
-		int count = 0;
-		List<Integer> ID = new ArrayList<>();
-		List<Integer> clientID = new ArrayList<>();
-		List<Integer> dur = new ArrayList<>();
-		List<Integer> completion = new ArrayList<>();
-		int i = 0;
+	    int cumulativeTime = 0;
 
-		for (Job curJob : getJobList()) {
-			ID.add(curJob.getJobID());
-			clientID.add(curJob.getClientID());
-			dur.add(curJob.getJobDuration());
-			count += curJob.getJobDuration();
-			completion.add(count);	
-		}
+	    // Lists to store fields
+	    List<Integer> carIDs = new ArrayList<>();
+	    List<Integer> ownerIDs = new ArrayList<>();
+	    List<String> makes = new ArrayList<>();
+	    List<String> models = new ArrayList<>();
+	    List<Integer> years = new ArrayList<>();
+	    List<Integer> residencyTimes = new ArrayList<>();
+	    List<Integer> completionTimes = new ArrayList<>();
 
-		try {
-			BufferedWriter writer = new BufferedWriter(new FileWriter("VC.txt", false));
-			writer.write("Job ID: " + ID + "\n");
-			writer.write("Client ID: " + clientID + "\n");
-			writer.write("Duration: " + dur + "\n");
-			writer.write("Completion time for jobs are: \n" + completion);
-			writer.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	    for (Car car : carList) {
+	        carIDs.add(car.getCarID());
+	        ownerIDs.add(car.getOwnerID());
+	        makes.add(car.getMake());
+	        models.add(car.getModel());
+	        years.add(car.getYear());
+	        residencyTimes.add(car.getRes());
 
+	        cumulativeTime += car.getRes();
+	        completionTimes.add(cumulativeTime);
+	    }
+
+	    try (BufferedWriter writer = new BufferedWriter(new FileWriter("vcCars.txt", false))) {
+	        writer.write("Car ID: " + carIDs + "\n");
+	        writer.write("Owner ID: " + ownerIDs + "\n");
+	        writer.write("Make: " + makes + "\n");
+	        writer.write("Model: " + models + "\n");
+	        writer.write("Year:  " + years + "\n");
+	        writer.write("Residency Time: " + residencyTimes + "\n");
+	        writer.write("Completion Times: " + completionTimes + "\n");
+	        System.out.println("Car completion report written to vcCars.txt.");
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
 	}
+
+
 	
 	
 		//private 
 	static void saveCarsToFile() {
-	    try (BufferedWriter writer = new BufferedWriter(new FileWriter("jobs.txt"))) {
-	        for (Job job : jobList) {
-	        	System.out.println("Saving to file: " + job);
-	            writer.write(job.toString() + "\n");
+	    try (BufferedWriter writer = new BufferedWriter(new FileWriter("cars.txt"))) {
+	        for (Car car : carList) {
+	        	System.out.println("Saving to file: " + car);
+	            writer.write(car.toString() + "\n");
 	        }
-	        System.out.println("jobs.txt written.");
+	        System.out.println("car.txt written.");
 	    } catch (IOException e) {
 	        e.printStackTrace();
 	    }
 	}
 	
 	void loadCarsFromFile() {
-		 jobList.clear();
-	    try (BufferedReader reader = new BufferedReader(new FileReader("jobs.txt"))) {
+		 carList.clear();
+	    try (BufferedReader reader = new BufferedReader(new FileReader("cars.txt"))) {
 	        String line;
 	        //Read each line
 	        while ((line = reader.readLine()) != null) {
@@ -227,15 +238,19 @@ public class VC {
 	            
 	            if (parts.length >= 4) {
 	            	//parse for info
-	                int id = Integer.parseInt(parts[0]);
-	                int client = Integer.parseInt(parts[1]);
-	                int dur = Integer.parseInt(parts[2]);
+	            	int carId = Integer.parseInt(parts[0].trim());
+	            	int ownerId = Integer.parseInt(parts[1].trim());
+	                String make = parts[2].trim();
+	                String model = parts[3].trim();
+	                int year = Integer.parseInt(parts[4].trim());
+	                int res = Integer.parseInt(parts[5].trim());
+	                
 	                String date = parts[3];
-	                //recreate job object from saved data
-	                Job job = new Job(id, client, dur, date);
-	                jobList.add(job);
-	                //ensures jobID is always one more than the highest ID loaded from the file and updates jobID so no duplicates
-	                jobID = Math.max(jobID, id + 1);
+	                //recreate car object from saved data
+	                Car car = new Car(carId, ownerId, make, model, year, res);
+	                carList.add(car);
+	                //ensures carID is always one more than the highest ID loaded from the file and updates jobID so no duplicates
+	                carID = Math.max(carID, carId + 1);
 	            }
 	        }
 	        System.out.println("Jobs loaded from file.");
