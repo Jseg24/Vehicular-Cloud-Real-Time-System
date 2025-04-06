@@ -78,7 +78,11 @@ public class VC_Frame extends JFrame implements ActionListener{
 		cal.addActionListener(this);
 		cars.addActionListener(this);
 		setVisible(true);
+		//Buttons to edit jobs and cars
+		JButton manageBtn = new JButton("Manage Jobs/Cars");
+		manageBtn.addActionListener(e -> new EditDataFrame());
 	}
+	
 
 	public static void main(String[] args) {
 		SwingUtilities.invokeLater(() -> new VC_Frame().setVisible(true));

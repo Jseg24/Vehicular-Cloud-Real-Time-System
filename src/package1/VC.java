@@ -286,6 +286,41 @@ public class VC {
 	        }
 	    }
 	}
+	//------------------------------------------------------------------
+	//edit jobs and cars
+	public ArrayList<Car> getCarList() {
+	    return VC.carList;
+	}
+	
+	public void deleteJob(int jobID) {
+	    jobList.removeIf(job -> job.getJobID() == jobID);
+	    saveJobsToFile();
+	}
+
+	public void updateJob(Job updatedJob) {
+	    for (int i = 0; i < jobList.size(); i++) {
+	        if (jobList.get(i).getJobID() == updatedJob.getJobID()) {
+	            jobList.set(i, updatedJob);
+	            break;
+	        }
+	    }
+	    saveJobsToFile();
+	}
+
+	public void deleteCar(int carID) {
+	    carList.removeIf(car -> car.getCarID() == carID);
+	    saveCarsToFile();
+	}
+
+	public void updateCar(Car updatedCar) {
+	    for (int i = 0; i < carList.size(); i++) {
+	        if (carList.get(i).getCarID() == updatedCar.getCarID()) {
+	            carList.set(i, updatedCar);
+	            break;
+	        }
+	    }
+	    saveCarsToFile();
+	}
 
 	public ArrayList<String> getServerResults() {
 	    return new ArrayList<>(server.getJobResults());
