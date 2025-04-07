@@ -159,11 +159,12 @@ public class Customer extends JFrame implements ActionListener {
 					return;
 				}
 
-				new Storing(clientID, jobHours, deadlineText);
+				
 				boolean choice;
 				choice = vc.addJob(clientID, jobHours);
 				
 				if(choice) {
+					new Storing(clientID, jobHours, deadlineText);
 					JOptionPane.showMessageDialog(this, "Job submitted successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
 				}
 				else {

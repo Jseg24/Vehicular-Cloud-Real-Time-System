@@ -171,12 +171,13 @@ public class Owner extends JFrame implements ActionListener {
 				int residencyTime = Integer.parseInt(Approx_residency.getText());
 
 				// Create a new Storing instance (automatically saves data if valid)
-				new Storing(ownerID, Vehi_info.getText(), model_text.getText(), year, residencyTime);
+				
 				
 				//--------------Takes one car and sees if it will be accpeted or rejected
 				boolean choice;
 				choice = vc.addCar(ownerID, Vehi_info.getText(), model_text.getText(), year, residencyTime);
 				if(choice) {
+					new Storing(ownerID, Vehi_info.getText(), model_text.getText(), year, residencyTime);
 					JOptionPane.showMessageDialog(this, "Car registered", "Success", JOptionPane.INFORMATION_MESSAGE);
 				}
 				else {
