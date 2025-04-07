@@ -32,6 +32,7 @@ public class Owner extends JFrame implements ActionListener {
 	private JLabel approx;
 	private JPanel panel;
 	private JPanel panelButton;
+	private JButton reset;
 	private JLabel model;
 	private JTextField model_text;
 	private JLabel year;
@@ -62,6 +63,18 @@ public class Owner extends JFrame implements ActionListener {
 	}
 
 	public void createButton() {
+		reset = new JButton("Reset");
+		reset.setFocusable(false);
+		reset.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					owner_ID.setText("");
+					Vehi_info.setText("");
+					model_text.setText("");
+					year_text.setText("");
+					Approx_residency.setText("");
+					
+				}
+		});
 		submit = new JButton();
 		submit.addActionListener(this);
 		submit.setText("Submit");
@@ -76,7 +89,7 @@ public class Owner extends JFrame implements ActionListener {
 		panelButton.setLayout(new BorderLayout());
 		panelButton.add(submit, BorderLayout.EAST);
 		panelButton.add(back, BorderLayout.WEST);
-
+		panelButton.add(reset, BorderLayout.CENTER);
 	}
 
 	public void createTextField() {
