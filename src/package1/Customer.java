@@ -35,6 +35,7 @@ public class Customer extends JFrame implements ActionListener {
 	private JLabel deadline;
 	private JPanel panel;
 	private JPanel panelButton;
+	private JButton reset; 
 
 	private VC vc;
 	
@@ -62,6 +63,15 @@ public class Customer extends JFrame implements ActionListener {
 	}
 
 	public void createButton() {
+		reset = new JButton("Reset"); 
+		reset.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+						client_ID.setText("");
+						jobDuration.setText("");
+						jobDeadline.setText("");
+				}
+				
+		});
 		submit = new JButton();
 		submit.addActionListener(this);
 		submit.setText("Submit");
@@ -76,6 +86,7 @@ public class Customer extends JFrame implements ActionListener {
 		panelButton.setLayout(new BorderLayout());
 		panelButton.add(submit, BorderLayout.EAST);
 		panelButton.add(back, BorderLayout.WEST);
+		panelButton.add(reset, BorderLayout.CENTER); 
 
 	}
 
