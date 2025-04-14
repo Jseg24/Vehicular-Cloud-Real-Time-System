@@ -165,6 +165,9 @@ public class Customer extends JFrame implements ActionListener {
 				
 				if(choice) {
 					new Storing(clientID, jobHours, deadlineText);
+					//Database logic
+					Database db = new Database();
+					db.clientData(clientID, jobHours, deadlineText);
 					JOptionPane.showMessageDialog(this, "Job submitted successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
 				}
 				else {

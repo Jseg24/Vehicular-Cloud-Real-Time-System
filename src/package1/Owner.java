@@ -178,6 +178,10 @@ public class Owner extends JFrame implements ActionListener {
 				choice = vc.addCar(ownerID, Vehi_info.getText(), model_text.getText(), year, residencyTime);
 				if(choice) {
 					new Storing(ownerID, Vehi_info.getText(), model_text.getText(), year, residencyTime);
+					//Database logic
+					Database db = new Database();
+					db.ownerData(ownerID, Vehi_info.getText(), model_text.getText(), year, residencyTime);
+					
 					JOptionPane.showMessageDialog(this, "Car registered", "Success", JOptionPane.INFORMATION_MESSAGE);
 				}
 				else {
