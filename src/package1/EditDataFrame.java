@@ -1,15 +1,15 @@
 package package1;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+
 import java.awt.*;
 import java.awt.event.*;
 
 public class EditDataFrame extends JFrame {
     private VC vc = VC.getInstance();
-    private JList<Job> jobList;
-    private JList<Car> carList;
-    private DefaultListModel<Job> jobModel;
-    private DefaultListModel<Car> carModel;
+    private JTable jobTable, carTable;
+    private DefaultTableModel jobModel, carModel;
     private JButton editJobBtn, deleteJobBtn, editCarBtn, deleteCarBtn;
 
     public EditDataFrame() {
@@ -20,27 +20,23 @@ public class EditDataFrame extends JFrame {
 
         // Job Panel
         JPanel jobPanel = new JPanel(new BorderLayout());
-        jobModel = new DefaultListModel<>();
-        for (Job job : vc.getJobList()) {
-            jobModel.addElement(job);
-        }
-        //-------------------------------------------------------------------------
         String[] jobColumns = {"Job ID", "Client ID", "Duration", "Job Deadline"};
-        Object[][] jobData = new Object[jobModel.size()][4];
-        for (int i = 0; i < jobModel.size(); i++) {
-            Job job = jobModel.get(i);
-            jobData[i][0] = job.getJobID();
-            jobData[i][1] = job.getClientID();
-            jobData[i][2] = job.getJobDuration();
-            //jobData[i][3] = job.getDate();
+        jobModel = new DefaultTableModel(jobColumns, 0);
+
+        for (Job job : vc.getJobList()) {
+            jobModel.addRow(new Object[]{
+                job.getJobID(),
+                job.getClientID(),
+                job.getJobDuration(),
+                job.getDate()
+            });
         }
-        JTable jobTable = new JTable(jobData, jobColumns);
+        jobTable = new JTable(jobModel);   
+
       
-        jobPanel.add(new JScrollPane(jobTable), BorderLayout.NORTH);
+        jobPanel.add(new JScrollPane(jobTable), BorderLayout.CENTER);
         
-        
-        jobList = new JList<>(jobModel);
-        jobPanel.add(new JScrollPane(jobList), BorderLayout.CENTER);
+
 
         JPanel jobBtnPanel = new JPanel();
         editJobBtn = new JButton("Edit Job");
@@ -51,30 +47,22 @@ public class EditDataFrame extends JFrame {
 
         // Car Panel
         JPanel carPanel = new JPanel(new BorderLayout());
-        carModel = new DefaultListModel<>();
-        for (Car car : vc.getCarList()) {
-            carModel.addElement(car);
-        }
-        
-        //------------------------------------------------------------------------------
         String[] carColumns = {"Car ID", "Owner ID", "Make", "Model", "Year", "Residency"};
-        Object[][] carData = new Object[carModel.size()][6];
-        for (int i = 0; i < carModel.size(); i++) {
-            Car car = carModel.get(i);
-            carData[i][0] = car.getCarID();
-            carData[i][1] = car.getOwnerID();
-            carData[i][2] = car.getMake();
-            carData[i][3] = car.getModel();
-            carData[i][4] = car.getYear();
-            carData[i][5] = car.getRes();
+        carModel = new DefaultTableModel(carColumns, 0);
+
+        for (Car car : vc.getCarList()) {
+            carModel.addRow(new Object[]{
+                car.getCarID(),
+                car.getOwnerID(),
+                car.getMake(),
+                car.getModel(),
+                car.getYear(),
+                car.getRes()
+            });
         }
-        JTable carTable = new JTable(carData, carColumns);
-       
-        carPanel.add(new JScrollPane(carTable), BorderLayout.NORTH);
-        
-        
-        carList = new JList<>(carModel);
-        carPanel.add(new JScrollPane(carList), BorderLayout.CENTER);
+
+        carTable = new JTable(carModel);
+        carPanel.add(new JScrollPane(carTable), BorderLayout.CENTER);
 
         JPanel carBtnPanel = new JPanel();
         editCarBtn = new JButton("Edit Car");
@@ -93,50 +81,63 @@ public class EditDataFrame extends JFrame {
 
     private void addListeners() {
         deleteJobBtn.addActionListener(e -> {
-            Job selected = jobList.getSelectedValue();
-            if (selected != null) {
-                vc.deleteJob(selected.getJobID());
-                jobModel.removeElement(selected);
+        	int row = jobTable.getSelectedRow();
+            if (row != -1) {
+                int jobID = Integer.parseInt(jobModel.getValueAt(row, 0).toString());
+                vc.deleteJob(jobID);
+                jobModel.removeRow(row);
             }
         });
 
         editJobBtn.addActionListener(e -> {
-            Job selected = jobList.getSelectedValue();
-            if (selected != null) {
-                String durationStr = JOptionPane.showInputDialog(this, "Edit Duration:", selected.getJobDuration());
-                String deadline = JOptionPane.showInputDialog(this, "Edit Deadline (MM/dd/yyyy):", selected.getDate());
+        	int row = jobTable.getSelectedRow();
+            if (row != -1) {
                 try {
+                    int jobID = Integer.parseInt(jobModel.getValueAt(row, 0).toString());
+                    int clientID = Integer.parseInt(jobModel.getValueAt(row, 1).toString());
+
+                    String durationStr = JOptionPane.showInputDialog(this, "Edit Duration:", jobModel.getValueAt(row, 2));
+                    String deadline = JOptionPane.showInputDialog(this, "Edit Deadline (MM/dd/yyyy HH:mm:ss):", jobModel.getValueAt(row, 3));
                     int duration = Integer.parseInt(durationStr);
-                    Job updated = new Job(selected.getJobID(), selected.getClientID(), duration, deadline);
+
+                    Job updated = new Job(jobID, clientID, duration, deadline);
                     vc.updateJob(updated);
-                    jobModel.setElementAt(updated, jobList.getSelectedIndex());
+
+                    jobModel.setValueAt(duration, row, 2);
+                    jobModel.setValueAt(deadline, row, 3);
                 } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(this, "Invalid duration.");
+                    JOptionPane.showMessageDialog(this, "Invalid input: duration must be a number.");
                 }
             }
         });
 
         deleteCarBtn.addActionListener(e -> {
-            Car selected = carList.getSelectedValue();
-            if (selected != null) {
-                vc.deleteCar(selected.getCarID());
-                carModel.removeElement(selected);
+        	int row = carTable.getSelectedRow();
+            if (row != -1) {
+                int carID = Integer.parseInt(carModel.getValueAt(row, 0).toString());
+                vc.deleteCar(carID);
+                carModel.removeRow(row);
             }
         });
-
         editCarBtn.addActionListener(e -> {
-            Car selected = carList.getSelectedValue();
-            if (selected != null) {
-                String make = JOptionPane.showInputDialog(this, "Edit Make:", selected.getMake());
-                String model = JOptionPane.showInputDialog(this, "Edit Model:", selected.getModel());
-                String yearStr = JOptionPane.showInputDialog(this, "Edit Year:", selected.getYear());
-                String resStr = JOptionPane.showInputDialog(this, "Edit Residency Time:", selected.getRes());
+        	int row = carTable.getSelectedRow();
+            if (row != -1) {
                 try {
-                    int year = Integer.parseInt(yearStr);
-                    int res = Integer.parseInt(resStr);
-                    Car updated = new Car(selected.getCarID(), selected.getOwnerID(), make, model, year, res);
+                    int carID = Integer.parseInt(carModel.getValueAt(row, 0).toString());
+                    int ownerID = Integer.parseInt(carModel.getValueAt(row, 1).toString());
+
+                    String make = JOptionPane.showInputDialog(this, "Edit Make:", carModel.getValueAt(row, 2));
+                    String model = JOptionPane.showInputDialog(this, "Edit Model:", carModel.getValueAt(row, 3));
+                    int year = Integer.parseInt(JOptionPane.showInputDialog(this, "Edit Year:", carModel.getValueAt(row, 4)));
+                    int res = Integer.parseInt(JOptionPane.showInputDialog(this, "Edit Residency Time:", carModel.getValueAt(row, 5)));
+
+                    Car updated = new Car(carID, ownerID, make, model, year, res);
                     vc.updateCar(updated);
-                    carModel.setElementAt(updated, carList.getSelectedIndex());
+
+                    carModel.setValueAt(make, row, 2);
+                    carModel.setValueAt(model, row, 3);
+                    carModel.setValueAt(year, row, 4);
+                    carModel.setValueAt(res, row, 5);
                 } catch (NumberFormatException ex) {
                     JOptionPane.showMessageDialog(this, "Invalid year or residency time.");
                 }
