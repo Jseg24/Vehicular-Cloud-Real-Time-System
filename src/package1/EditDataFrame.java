@@ -83,9 +83,11 @@ public class EditDataFrame extends JFrame {
         deleteJobBtn.addActionListener(e -> {
         	int row = jobTable.getSelectedRow();
             if (row != -1) {
-                int jobID = Integer.parseInt(jobModel.getValueAt(row, 0).toString());
-                vc.deleteJob(jobID);
+                int clientID = Integer.parseInt(jobModel.getValueAt(row, 1).toString());
+                vc.deleteJob(clientID);
                 jobModel.removeRow(row);
+                Database db = new Database();
+                db.deleteJobData(clientID);
             }
         });
 
@@ -118,9 +120,11 @@ public class EditDataFrame extends JFrame {
         deleteCarBtn.addActionListener(e -> {
         	int row = carTable.getSelectedRow();
             if (row != -1) {
-                int carID = Integer.parseInt(carModel.getValueAt(row, 0).toString());
-                vc.deleteCar(carID);
+                int ownerID = Integer.parseInt(carModel.getValueAt(row, 1).toString());
+                vc.deleteCar(ownerID);
                 carModel.removeRow(row);
+                Database db = new Database();
+                db.deleteCarData(ownerID);
             }
         });
         editCarBtn.addActionListener(e -> {

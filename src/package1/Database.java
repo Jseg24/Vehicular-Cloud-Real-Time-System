@@ -95,5 +95,32 @@ public class Database {
 	    }
 	}
 
-	
+	public void deleteCarData(int OwnerID) {
+	    try {
+	        connection = DriverManager.getConnection(url, username, password);
+	        String sql = "DELETE FROM owner WHERE Owner_ID = ?";
+	        PreparedStatement ps = connection.prepareStatement(sql);
+	        ps.setInt(1, OwnerID);
+	        
+	        int rows = ps.executeUpdate();
+	        
+	        
+	        connection.close();
+	    } catch (SQLException e) {
+	        System.out.println("Error deleting car from database: " + e.getMessage());
+	    }
+	}
+	public void deleteJobData(int clientID) {
+	    try {
+	        connection = DriverManager.getConnection(url, username, password);
+	        String sql = "DELETE FROM client_task WHERE Client_ID = ?";
+	        PreparedStatement ps = connection.prepareStatement(sql);
+	        ps.setInt(1, clientID);
+	        int rows = ps.executeUpdate();
+	       
+	    } catch (SQLException e) {
+	        System.out.println("Error deleting job from database: " + e.getMessage());
+	    }
+	}
+
 }
