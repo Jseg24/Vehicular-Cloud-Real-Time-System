@@ -10,13 +10,13 @@ public class EditDataFrame extends JFrame {
     private VC vc = VC.getInstance();
     private JTable jobTable, carTable;
     private DefaultTableModel jobModel, carModel;
-    private JButton editJobBtn, deleteJobBtn, editCarBtn, deleteCarBtn;
+    private JButton editJobBtn, deleteJobBtn, editCarBtn, deleteCarBtn, refresh;;
 
     public EditDataFrame() {
         setTitle("Edit Jobs and Cars");
         setSize(700, 500);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setLayout(new GridLayout(1, 2));
+        
 
         // Job Panel
         JPanel jobPanel = new JPanel(new BorderLayout());
@@ -37,14 +37,6 @@ public class EditDataFrame extends JFrame {
         jobPanel.add(new JScrollPane(jobTable), BorderLayout.CENTER);
         
 
-
-        JPanel jobBtnPanel = new JPanel();
-        editJobBtn = new JButton("Edit Job");
-        deleteJobBtn = new JButton("Delete Job");
-        jobBtnPanel.add(editJobBtn);
-        jobBtnPanel.add(deleteJobBtn);
-        jobPanel.add(jobBtnPanel, BorderLayout.SOUTH);
-
         // Car Panel
         JPanel carPanel = new JPanel(new BorderLayout());
         String[] carColumns = {"Car ID", "Owner ID", "Make", "Model", "Year", "Residency"};
@@ -64,22 +56,42 @@ public class EditDataFrame extends JFrame {
         carTable = new JTable(carModel);
         carPanel.add(new JScrollPane(carTable), BorderLayout.CENTER);
 
-        JPanel carBtnPanel = new JPanel();
+        // Create Buttons
+        editJobBtn = new JButton("Edit Job");
+        deleteJobBtn = new JButton("Delete Job");
+        refresh = new JButton("Refresh");
         editCarBtn = new JButton("Edit Car");
         deleteCarBtn = new JButton("Delete Car");
-        carBtnPanel.add(editCarBtn);
-        carBtnPanel.add(deleteCarBtn);
-        carPanel.add(carBtnPanel, BorderLayout.SOUTH);
 
-        // Add to main frame
-        add(jobPanel);
-        add(carPanel);
+        
+        // Bottom Button Panel
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 10));
+        buttonPanel.add(editJobBtn);
+        buttonPanel.add(deleteJobBtn);
+        buttonPanel.add(refresh); 
+        buttonPanel.add(editCarBtn);
+        buttonPanel.add(deleteCarBtn);
+
+        // Center Panel with Both Tables
+        JPanel tablesPanel = new JPanel(new GridLayout(1, 2));
+        tablesPanel.add(jobPanel);
+        tablesPanel.add(carPanel);
+
+        add(tablesPanel, BorderLayout.CENTER);
+        add(buttonPanel, BorderLayout.SOUTH);
 
         addListeners();
         setVisible(true);
     }
+    
 
     private void addListeners() {
+    	refresh.addActionListener(e -> {
+    		this.dispose();
+    		vc.loadCarsFromFile();
+    		vc.loadCarsFromFile();
+    		new EditDataFrame();
+    	});
         deleteJobBtn.addActionListener(e -> {
         	int row = jobTable.getSelectedRow();
             if (row != -1) {
