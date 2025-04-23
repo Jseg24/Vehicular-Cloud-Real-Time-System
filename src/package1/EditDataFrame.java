@@ -20,7 +20,7 @@ public class EditDataFrame extends JFrame {
 
         // Job Panel
         JPanel jobPanel = new JPanel(new BorderLayout());
-        String[] jobColumns = {"Job ID", "Client ID", "Duration", "Job Deadline"};
+        String[] jobColumns = {"Job ID", "Client ID", "Duration", "TimeStamp"};
         jobModel = new DefaultTableModel(jobColumns, 0);
 
         for (Job job : vc.getJobList()) {
@@ -99,7 +99,8 @@ public class EditDataFrame extends JFrame {
                     int clientID = Integer.parseInt(jobModel.getValueAt(row, 1).toString());
 
                     String durationStr = JOptionPane.showInputDialog(this, "Edit Duration:", jobModel.getValueAt(row, 2));
-                    String deadline = JOptionPane.showInputDialog(this, "Edit Deadline (MM/dd/yyyy HH:mm:ss):", jobModel.getValueAt(row, 3));
+                    String deadline = jobModel.getValueAt(row, 3).toString();
+
                     int duration = Integer.parseInt(durationStr);
                     System.out.println("Trying to update Job_ID: " + jobID);
 
