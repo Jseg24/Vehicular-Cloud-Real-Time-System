@@ -99,10 +99,14 @@ public class EditDataFrame extends JFrame {
                     String durationStr = JOptionPane.showInputDialog(this, "Edit Duration:", jobModel.getValueAt(row, 2));
                     String deadline = JOptionPane.showInputDialog(this, "Edit Deadline (MM/dd/yyyy HH:mm:ss):", jobModel.getValueAt(row, 3));
                     int duration = Integer.parseInt(durationStr);
+                    System.out.println("Trying to update Job_ID: " + jobID);
 
                     Job updated = new Job(jobID, clientID, duration, deadline);
                     vc.updateJob(updated);
-
+                    Database db = new Database();
+                    db.updateClientData(clientID, duration, deadline);
+                    
+                    
                     jobModel.setValueAt(duration, row, 2);
                     jobModel.setValueAt(deadline, row, 3);
                 } catch (NumberFormatException ex) {
@@ -130,10 +134,14 @@ public class EditDataFrame extends JFrame {
                     String model = JOptionPane.showInputDialog(this, "Edit Model:", carModel.getValueAt(row, 3));
                     int year = Integer.parseInt(JOptionPane.showInputDialog(this, "Edit Year:", carModel.getValueAt(row, 4)));
                     int res = Integer.parseInt(JOptionPane.showInputDialog(this, "Edit Residency Time:", carModel.getValueAt(row, 5)));
+                    System.out.println("Trying to update Car_ID: " + carID);
 
                     Car updated = new Car(carID, ownerID, make, model, year, res);
                     vc.updateCar(updated);
-
+                    Database db = new Database();
+                    db.updateOwnerData(ownerID, make, model, year, res);
+                    
+                    
                     carModel.setValueAt(make, row, 2);
                     carModel.setValueAt(model, row, 3);
                     carModel.setValueAt(year, row, 4);

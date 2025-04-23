@@ -59,6 +59,41 @@ public class Database {
 		}
 	}
 	
-	
+	public void updateClientData(int clientID, int jobDuration, String jobDeadline) {
+	    try {
+	        connection = DriverManager.getConnection(url, username, password);
+	        String sql = "UPDATE client_task SET Approximate_Job = ?, Job_DeadLine = ? WHERE Client_ID = ?";
+	        PreparedStatement ps = connection.prepareStatement(sql);
+	        ps.setInt(1, jobDuration);
+	        ps.setString(2, jobDeadline);
+	        ps.setInt(3, clientID);
+	        int row = ps.executeUpdate();
+	        if (row > 0)
+	            System.out.println("Client data updated.");
+	        connection.close();
+	    } catch (SQLException e) {
+	        System.out.println("Error updating client data: " + e.getMessage());
+	    }
+	}
+
+	public void updateOwnerData(int OwnerID, String make, String model, int year, int resTime) {
+	    try {
+	        connection = DriverManager.getConnection(url, username, password);
+	        String sql = "UPDATE owner SET Vehicle_Make = ?, Vehicle_Model = ?, Vehicle_Year = ?, Approximate_Residency = ? WHERE Owner_ID = ?";
+	        PreparedStatement ps = connection.prepareStatement(sql);
+	        ps.setString(1, make);
+	        ps.setString(2, model);
+	        ps.setInt(3, year);
+	        ps.setInt(4, resTime);
+	        ps.setInt(5, OwnerID);
+	        int row = ps.executeUpdate();
+	        if (row > 0)
+	            System.out.println("Owner data updated.");
+	        connection.close();
+	    } catch (SQLException e) {
+	        System.out.println("Error updating owner data: " + e.getMessage());
+	    }
+	}
+
 	
 }
