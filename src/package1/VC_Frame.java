@@ -20,8 +20,9 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
 public class VC_Frame extends JFrame implements ActionListener{
-	private JButton cal;
+	private JButton calc;
 	private JButton cars;
+	private JButton edit;
 	private BackgroundPanel background;
 	private JPanel selectionPanel;
 	
@@ -61,22 +62,29 @@ public class VC_Frame extends JFrame implements ActionListener{
 		JPanel centerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
 		centerPanel.setOpaque(false);
 
-		cal = new JButton("Job Completion Time");
-		cal.setToolTipText("Click for Completion");
-		cal.setPreferredSize(new Dimension(200, 50));
-		cal.setFont(new Font("Times New Roman", Font.BOLD, 14));
+		calc = new JButton("Job Completion Time");
+		calc.setToolTipText("Click for Completion");
+		calc.setPreferredSize(new Dimension(200, 50));
+		calc.setFont(new Font("Times New Roman", Font.BOLD, 14));
 		
 		cars = new JButton("List of cars");
 		cars.setToolTipText("Click for list of cars");
 		cars.setPreferredSize(new Dimension(200, 50));
 		cars.setFont(new Font("Times New Roman", Font.BOLD, 14));
 		
+		edit = new JButton("Click to Edit Entries");
+		edit.setToolTipText("Edit entries here");
+		edit.setPreferredSize(new Dimension(200, 50));
+		edit.setFont(new Font("Times New Roman", Font.BOLD, 14));
+		
 		centerPanel.add(cars);
-		centerPanel.add(cal);
+		centerPanel.add(calc);
+		centerPanel.add(edit);
 		add(centerPanel, BorderLayout.CENTER);
 
-		cal.addActionListener(this);
+		calc.addActionListener(this);
 		cars.addActionListener(this);
+		edit.addActionListener(this);
 		setVisible(true);
 		//Buttons to edit jobs and cars
 		JButton manageBtn = new JButton("Manage Jobs/Cars");
@@ -92,7 +100,7 @@ public class VC_Frame extends JFrame implements ActionListener{
 	
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (e.getSource() == cal) {
+			if (e.getSource() == calc) {
 				vc.loadJobsFromFile();
 				vc.jobCompletion();
 				displayCompletionTimes(); 
@@ -102,6 +110,9 @@ public class VC_Frame extends JFrame implements ActionListener{
 				vc.carCompletion();
 				displayCarfax();
 				}
+			if (e.getSource() == edit) {
+				new EditDataFrame();
+			}
 
 }
 
