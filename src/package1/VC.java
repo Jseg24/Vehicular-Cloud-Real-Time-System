@@ -77,25 +77,25 @@ public class VC {
 	//-------------------------------------------
 	
 	public boolean checkCar() {
-		int n = JOptionPane.showConfirmDialog(null, "Accept Latest Car?" ,"",JOptionPane.YES_NO_OPTION);
+		int n = JOptionPane.showConfirmDialog(null, "Accept Latest Car?" ,"VC Contoller",JOptionPane.YES_NO_OPTION);
 
 		if (n == JOptionPane.YES_OPTION) {
-			JOptionPane.showMessageDialog(null, "Accepted");
+			
 			return true;
 		} else {
-			JOptionPane.showMessageDialog(null, "Rejected");
+			
 			return false;
 		}
 	}
 	
 	public boolean checkJob() {
-		int n = JOptionPane.showConfirmDialog(null, "Accept Latest Job Submissions?" ,"",JOptionPane.YES_NO_OPTION);
+		int n = JOptionPane.showConfirmDialog(null, "Accept Latest Job Submissions?" ,"VC Contoller",JOptionPane.YES_NO_OPTION);
 
 		if (n == JOptionPane.YES_OPTION) {
-			JOptionPane.showMessageDialog(null, "Accepted");
+			
 			return true;
 		} else {
-			JOptionPane.showMessageDialog(null, "Rejected");
+			
 			return false;
 		}
 	}
@@ -271,6 +271,10 @@ public class VC {
 
 	public int getJobID() {
 		return jobID;
+	}
+	
+	public int getCarID() {
+		return carID;
 	}
 
 	public void setJobID(int jobID) {

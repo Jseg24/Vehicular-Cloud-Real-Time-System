@@ -5,6 +5,8 @@ import java.time.format.DateTimeFormatter;
 import java.sql.*;
 
 public class Database {
+	
+	private VC vc = VC.getInstance();
 
 	static Connection connection = null;
 	//this part is the address and name of your database server: jdbc:mysql://localhost:3306/VC3
@@ -20,8 +22,9 @@ public class Database {
 	    String newDate = timeStamp.format(format);
 
 	    try {
+	    	int jobID = vc.getJobID()-1;
 	        connection = DriverManager.getConnection(url, username, password);
-	        String sql = "INSERT INTO client_task (Client_ID, Approximate_Job, Job_DeadLine, Time_Stamp) VALUES ("+clientID+", "+jobDuration+", '"+jobDeadline+ "', '"+newDate+ "')";
+	        String sql = "INSERT INTO client_task (Client_ID, Job_ID, Approximate_Job, Job_DeadLine, Time_Stamp) VALUES ("+clientID+","+jobID+", "+jobDuration+", '"+jobDeadline+ "', '"+newDate+ "')";
 	        Statement statement = connection.createStatement();
 	        int row = statement.executeUpdate(sql);
 	        if (row > 0)
@@ -44,8 +47,9 @@ public class Database {
 	    String newDate = timeStamp.format(format);
 
 	    try {
+	    	int carID = vc.getCarID()-1;
 	        connection = DriverManager.getConnection(url, username, password);
-	        String sql = "INSERT INTO owner (Owner_ID, Vehicle_Make, Vehicle_Model, Vehicle_Year, Approximate_Residency, Time_Stamp) VALUES ("+ owner_ID + ", '" + vehi_info + "', '" + model_text + "', " + year + ", " + Approx_residency + ", '" + newDate + "')";
+	        String sql = "INSERT INTO owner (Owner_ID, Car_ID, Vehicle_Make, Vehicle_Model, Vehicle_Year, Approximate_Residency, Time_Stamp) VALUES ("+ owner_ID + ","+carID+", '" + vehi_info + "', '" + model_text + "', " + year + ", " + Approx_residency + ", '" + newDate + "')";
 	        Statement statement = connection.createStatement();
 	        int row = statement.executeUpdate(sql);
 	        if (row > 0)
@@ -59,14 +63,14 @@ public class Database {
 		}
 	}
 	
-	public void updateClientData(int clientID, int jobDuration, String jobDeadline) {
+	public void updateClientData(int clientID, int jobDuration, int jobID) {
 	    try {
 	        connection = DriverManager.getConnection(url, username, password);
-	        String sql = "UPDATE client_task SET Approximate_Job = ?, Job_DeadLine = ? WHERE Client_ID = ?";
+	        String sql = "UPDATE client_task SET Approximate_Job = ? WHERE Client_ID = ? AND Job_ID = ?";
 	        PreparedStatement ps = connection.prepareStatement(sql);
 	        ps.setInt(1, jobDuration);
-	        ps.setString(2, jobDeadline);
-	        ps.setInt(3, clientID);
+	        ps.setInt(2, clientID);
+	        ps.setInt(3, jobID);
 	        int row = ps.executeUpdate();
 	        if (row > 0)
 	            System.out.println("Client data updated.");
@@ -76,16 +80,17 @@ public class Database {
 	    }
 	}
 
-	public void updateOwnerData(int OwnerID, String make, String model, int year, int resTime) {
+	public void updateOwnerData(int OwnerID, String make, String model, int year, int resTime, int carID) {
 	    try {
 	        connection = DriverManager.getConnection(url, username, password);
-	        String sql = "UPDATE owner SET Vehicle_Make = ?, Vehicle_Model = ?, Vehicle_Year = ?, Approximate_Residency = ? WHERE Owner_ID = ?";
+	        String sql = "UPDATE owner SET Vehicle_Make = ?, Vehicle_Model = ?, Vehicle_Year = ?, Approximate_Residency = ? WHERE Owner_ID = ? AND Car_ID = ?";
 	        PreparedStatement ps = connection.prepareStatement(sql);
 	        ps.setString(1, make);
 	        ps.setString(2, model);
 	        ps.setInt(3, year);
 	        ps.setInt(4, resTime);
 	        ps.setInt(5, OwnerID);
+	        ps.setInt(6, carID);
 	        int row = ps.executeUpdate();
 	        if (row > 0)
 	            System.out.println("Owner data updated.");
@@ -95,28 +100,34 @@ public class Database {
 	    }
 	}
 
-	public void deleteCarData(int OwnerID) {
+	public void deleteCarData(int OwnerID, int carID) {
 	    try {
 	        connection = DriverManager.getConnection(url, username, password);
-	        String sql = "DELETE FROM owner WHERE Owner_ID = ?";
+	        String sql = "DELETE FROM owner WHERE Owner_ID = ? AND Car_ID = ?";
 	        PreparedStatement ps = connection.prepareStatement(sql);
 	        ps.setInt(1, OwnerID);
-	        
+	        ps.setInt(2, carID);
 	        int rows = ps.executeUpdate();
-	        
+	        if (rows > 0)
+	            System.out.println("Owner data updated.");
+	        connection.close();
 	        
 	        connection.close();
 	    } catch (SQLException e) {
 	        System.out.println("Error deleting car from database: " + e.getMessage());
 	    }
 	}
-	public void deleteJobData(int clientID) {
+	public void deleteJobData(int clientID, int jobID) {
 	    try {
 	        connection = DriverManager.getConnection(url, username, password);
-	        String sql = "DELETE FROM client_task WHERE Client_ID = ?";
+	        String sql = "DELETE FROM client_task WHERE Client_ID = ? AND Job_ID = ?";
 	        PreparedStatement ps = connection.prepareStatement(sql);
 	        ps.setInt(1, clientID);
+	        ps.setInt(2, jobID);
 	        int rows = ps.executeUpdate();
+	        if (rows > 0)
+	            System.out.println("Owner data updated.");
+	        connection.close();
 	       
 	    } catch (SQLException e) {
 	        System.out.println("Error deleting job from database: " + e.getMessage());

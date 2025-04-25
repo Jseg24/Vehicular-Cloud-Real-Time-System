@@ -111,6 +111,8 @@ public class VC_Frame extends JFrame implements ActionListener{
 				displayCarfax();
 				}
 			if (e.getSource() == edit) {
+				vc.loadCarsFromFile();
+				vc.loadJobsFromFile();
 				new EditDataFrame();
 			}
 
