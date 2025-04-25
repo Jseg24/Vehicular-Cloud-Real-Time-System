@@ -97,7 +97,7 @@ public class EditDataFrame extends JFrame {
             if (row != -1) {
                 int clientID = Integer.parseInt(jobModel.getValueAt(row, 1).toString());
                 int jobID = Integer.parseInt(jobModel.getValueAt(row, 0).toString());
-                vc.deleteJob(clientID);
+                vc.deleteJob(jobID);
                 jobModel.removeRow(row);
                 Database db = new Database();
                 db.deleteJobData(clientID,jobID);
@@ -136,7 +136,7 @@ public class EditDataFrame extends JFrame {
             if (row != -1) {
                 int ownerID = Integer.parseInt(carModel.getValueAt(row, 1).toString());
                 int carID = Integer.parseInt(carModel.getValueAt(row, 0).toString());
-                vc.deleteCar(ownerID);
+                vc.deleteCar(carID);
                 carModel.removeRow(row);
                 Database db = new Database();
                 db.deleteCarData(ownerID, carID);

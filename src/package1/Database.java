@@ -18,7 +18,8 @@ public class Database {
 	public void clientData(int clientID, int jobDuration, String jobDeadline) {
 		
 	    LocalDateTime timeStamp = LocalDateTime.now();
-	    DateTimeFormatter format = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm:ss");
+	    DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
 	    String newDate = timeStamp.format(format);
 
 	    try {
@@ -43,7 +44,8 @@ public class Database {
 	public void ownerData(int owner_ID, String vehi_info, String model_text, int year, int Approx_residency) {
 		
 	    LocalDateTime timeStamp = LocalDateTime.now();
-	    DateTimeFormatter format = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm:ss");
+	    DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
 	    String newDate = timeStamp.format(format);
 
 	    try {
