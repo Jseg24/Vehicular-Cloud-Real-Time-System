@@ -31,7 +31,7 @@ public class VC_Frame extends JFrame implements ActionListener{
 	
 		public VC_Frame() {
 		// Creates basic JFrame and title
-		setTitle("Vehicular Cloud Console");
+		setTitle("Vehicular Cloud Console Server");
 		setSize(500, 450);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
@@ -48,7 +48,7 @@ public class VC_Frame extends JFrame implements ActionListener{
 		JPanel selectionPanel = new JPanel(new BorderLayout());
 
 		// Title bar (used invisible lettering and html/br to create new line)
-		JLabel titleLabel = new JLabel("<html>Vehicular Cloud Console<br/>‎</html>");
+		JLabel titleLabel = new JLabel("<html>Vehicular Cloud Console Server<br/>‎</html>");
 		titleLabel.setFont(new Font("Sans-serif", Font.BOLD, 18));
 		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 

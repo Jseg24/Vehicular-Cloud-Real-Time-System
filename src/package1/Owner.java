@@ -196,6 +196,7 @@ public class Owner extends JFrame implements ActionListener {
 					db.ownerData(ownerID, Vehi_info.getText(), model_text.getText(), year, residencyTime);
 					
 					JOptionPane.showMessageDialog(this, "Car registered", "Success", JOptionPane.INFORMATION_MESSAGE);
+					
 				}
 				else {
 					JOptionPane.showMessageDialog(this, "Car Rejected!", "Rejected", JOptionPane.INFORMATION_MESSAGE);

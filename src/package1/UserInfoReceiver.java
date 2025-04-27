@@ -43,7 +43,7 @@ public class UserInfoReceiver extends JFrame implements ActionListener {
 		JPanel selectionPanel = new JPanel(new BorderLayout());
 
 		// Title bar (used invisible lettering and html/br to create new line)
-		JLabel titleLabel = new JLabel("<html>Vehicular Cloud Console<br/>‎ ‎ ‎ ‎ ‎ ‎Please Select Title:</html>");
+		JLabel titleLabel = new JLabel("<html>Welcome to Vehicular Cloud Console<br/>‎ ‎  ‎Please Select Title:</html>");
 		titleLabel.setFont(new Font("Sans-serif", Font.BOLD, 18));
 		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 

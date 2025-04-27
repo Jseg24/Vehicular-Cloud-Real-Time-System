@@ -43,6 +43,8 @@ public class VC {
 	}
 	//---------------------- Taking one job or one car at a time
 	public boolean addCar(int own, String make, String model, int year, int res) {
+		
+		loadCarsFromFile();
 		Car car = new Car(carID, own, make, model, year, res);
 		if(checkCar()) {
 			carList.add(car);
@@ -55,7 +57,9 @@ public class VC {
 	}
 	//-------------------------
 	public boolean addJob(int clientID, int duration) {
-
+		
+		loadJobsFromFile();
+		
 		LocalDateTime timeStamp = LocalDateTime.now();
 		DateTimeFormatter format = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm:ss");
 		String newDate = timeStamp.format(format);
@@ -66,6 +70,7 @@ public class VC {
 		jobList.add(job);
 		jobID++;
 		saveJobsToFile();
+		
 		return true;
 		}
 		else {
@@ -134,7 +139,7 @@ public class VC {
 	
 	
 		//private 
-	static void saveJobsToFile() {
+	public void saveJobsToFile() {
 	    try (BufferedWriter writer = new BufferedWriter(new FileWriter("jobs.txt"))) {
 	        for (Job job : jobList) {
 	        	System.out.println("Saving to file: " + job);
@@ -234,7 +239,7 @@ public class VC {
 	        String line;
 	        //Read each line
 	        while ((line = reader.readLine()) != null) {
-	            String[] parts = line.split(",");
+	            String [] parts = line.split(",");
 	            
 	            if (parts.length >= 4) {
 	            	//parse for info

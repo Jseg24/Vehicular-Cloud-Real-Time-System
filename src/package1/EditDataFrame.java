@@ -12,12 +12,16 @@ public class EditDataFrame extends JFrame {
     private DefaultTableModel jobModel, carModel;
     private JButton editJobBtn, deleteJobBtn, editCarBtn, deleteCarBtn, refresh;;
 
+    Storing st = new Storing();
+    
+        
     public EditDataFrame() {
         setTitle("Edit Jobs and Cars");
         setSize(700, 500);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         
 
+        
         // Job Panel
         JPanel jobPanel = new JPanel(new BorderLayout());
         String[] jobColumns = {"Job ID", "Client ID", "Duration", "TimeStamp"};
@@ -82,15 +86,44 @@ public class EditDataFrame extends JFrame {
 
         addListeners();
         setVisible(true);
+        
+        refresh();
     }
     
-
+   
+    
+    public void refresh() {
+    	vc.loadCarsFromFile();
+    	vc.loadJobsFromFile();
+    	
+    	jobModel.setRowCount(0);
+    	carModel.setRowCount(0);
+    	
+    	for (Job job : vc.getJobList()) {
+            jobModel.addRow(new Object[]{
+                job.getJobID(),
+                job.getClientID(),
+                job.getJobDuration(),
+                job.getDate()
+            });
+    	}
+    	
+    	for (Car car : vc.getCarList()) {
+            carModel.addRow(new Object[]{
+                car.getCarID(),
+                car.getOwnerID(),
+                car.getMake(),
+                car.getModel(),
+                car.getYear(),
+                car.getRes()
+            });
+        }
+    	
+    }
+    
     private void addListeners() {
     	refresh.addActionListener(e -> {
-    		this.dispose();
-    		vc.loadCarsFromFile();
-    		vc.loadCarsFromFile();
-    		new EditDataFrame();
+    		refresh();
     	});
         deleteJobBtn.addActionListener(e -> {
         	int row = jobTable.getSelectedRow();
@@ -98,6 +131,7 @@ public class EditDataFrame extends JFrame {
                 int clientID = Integer.parseInt(jobModel.getValueAt(row, 1).toString());
                 int jobID = Integer.parseInt(jobModel.getValueAt(row, 0).toString());
                 vc.deleteJob(jobID);
+                st.deletefromClients(clientID, jobID);
                 jobModel.removeRow(row);
                 Database db = new Database();
                 db.deleteJobData(clientID,jobID);
@@ -137,6 +171,7 @@ public class EditDataFrame extends JFrame {
                 int ownerID = Integer.parseInt(carModel.getValueAt(row, 1).toString());
                 int carID = Integer.parseInt(carModel.getValueAt(row, 0).toString());
                 vc.deleteCar(carID);
+                st.deletefromOwners(ownerID, carID);
                 carModel.removeRow(row);
                 Database db = new Database();
                 db.deleteCarData(ownerID, carID);

@@ -180,6 +180,7 @@ public class Customer extends JFrame implements ActionListener {
 					Database db = new Database();
 					db.clientData(clientID, jobHours, deadlineText);
 					JOptionPane.showMessageDialog(this, "Job submitted successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+					
 				}
 				else {
 					JOptionPane.showMessageDialog(this, "Job Rejected!", "Rejected", JOptionPane.INFORMATION_MESSAGE);
