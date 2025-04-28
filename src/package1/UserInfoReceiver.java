@@ -19,6 +19,7 @@ import javax.swing.SwingUtilities;
 public class UserInfoReceiver extends JFrame implements ActionListener {
 	private JButton user;
 	private JButton client;
+	private JButton VCFrame;
 	
 	private BackgroundPanel background;
 	UserButtons usrbtn = new UserButtons();
@@ -56,6 +57,7 @@ public class UserInfoReceiver extends JFrame implements ActionListener {
 		// buttons
 		user = usrbtn.getUserBtn();
 		client = usrbtn.getClientBtn();
+		VCFrame = usrbtm.getVCFrameBtn();
 		
 		usrbtn.setOpaque(false);
 		this.setVisible(true);
@@ -63,6 +65,7 @@ public class UserInfoReceiver extends JFrame implements ActionListener {
 
 		user.addActionListener(this); // TO SWITCH TO THE OTHER FRAMES
 		client.addActionListener(this);
+		VCFrame.addActionListener(this);
 		
 
 	}
@@ -81,7 +84,8 @@ public class UserInfoReceiver extends JFrame implements ActionListener {
 			this.dispose();
 			new Customer();
 		}
-		
-
+		if (e.getSource() == VCFrame) {
+			new VC_Frame();
+		}
 	}
 }
